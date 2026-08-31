@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autoral — Paulo Melo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,400&family=Source+Serif+4:ital,opsz@0,8..60;1,8..60&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-driven>
+
+<!--
+  PADRÃO DE IMAGEM COM WEBP:
+  ao trocar qualquer placeholder do picsum.photos por uma foto sua,
+  use este formato em vez de um <img> solto, com os DOIS arquivos
+  (webp + jpg) exportados/convertidos — veja o passo a passo no
+  Leia-me do banco de imagens no Drive.
+
+  <picture>
+    <source srcset="mudanca-01_janela-sobre-o-vale.webp" type="image/webp">
+    <img src="mudanca-01_janela-sobre-o-vale.jpg" alt="Janela sobre o vale">
+  </picture>
+
+  Importante: se o .webp não existir ou tiver nome errado, a imagem
+  quebra (o navegador NÃO volta pro .jpg sozinho) — sempre confira
+  se os dois arquivos estão na pasta antes de subir.
+-->
+
+<nav>
+  <div class="nav-inner">
+    <a class="brand" href="index.html">Paulo Melo</a>
+    <ul class="mono">
+      <li><a href="index.html#series">Séries</a></li>
+      <li><a href="index.html#sobre">Sobre</a></li>
+      <li><a href="index.html#contato">Contato</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Cabeçalho da série: largura cheia, acima da quebra -->
+<section class="series-header">
+  <span class="kicker mono">Série</span>
+  <h1 class="display">Autoral</h1>
+  <p class="meta mono">2025–2026 — 4 imagens</p>
+  <p class="intro">Substitua por um texto curto sobre esta série: o fio condutor entre as imagens, o que você estava buscando.</p>
+</section>
+
+<!-- Segunda quebra: menu de séries ao lado do carrossel -->
+<div class="series-layout">
+
+  <aside class="series-menu">
+    <span class="group-label mono">Séries</span>
+    <ul>
+      <li><a href="serie-mudanca.html"><span class="n">01</span> Mudança</a></li>
+      <li><a class="current" href="serie-autoral.html"><span class="n">02</span> Autoral</a></li>
+      <!-- nova série? adicione o link aqui também -->
+    </ul>
+  </aside>
+
+  <div class="carousel">
+    <div class="carousel-viewport">
+      <div class="carousel-track">
+
+        <div class="carousel-slide">
+          <div class="slide-img"><img src="https://picsum.photos/seed/autoral1/1000/1250" alt="Imagem autoral 1"></div>
+          <div class="slide-info">
+            <p class="plate-num">I</p>
+            <h3>Título da imagem</h3>
+            <p class="meta mono">Local, 2025</p>
+            <p class="desc">Substitua este texto por uma breve nota sobre a imagem.</p>
+          </div>
+        </div>
+
+        <div class="carousel-slide">
+          <div class="slide-img"><img src="https://picsum.photos/seed/autoral2/1000/1250" alt="Imagem autoral 2"></div>
+          <div class="slide-info">
+            <p class="plate-num">II</p>
+            <h3>Título da imagem</h3>
+            <p class="meta mono">Local, 2025</p>
+            <p class="desc">Substitua este texto por uma breve nota sobre a imagem.</p>
+          </div>
+        </div>
+
+        <div class="carousel-slide">
+          <div class="slide-img"><img src="https://picsum.photos/seed/autoral3/1000/1250" alt="Imagem autoral 3"></div>
+          <div class="slide-info">
+            <p class="plate-num">III</p>
+            <h3>Título da imagem</h3>
+            <p class="meta mono">Local, 2026</p>
+            <p class="desc">Substitua este texto por uma breve nota sobre a imagem.</p>
+          </div>
+        </div>
+
+        <div class="carousel-slide">
+          <div class="slide-img"><img src="https://picsum.photos/seed/autoral4/1000/1250" alt="Imagem autoral 4"></div>
+          <div class="slide-info">
+            <p class="plate-num">IV</p>
+            <h3>Título da imagem</h3>
+            <p class="meta mono">Local, 2026</p>
+            <p class="desc">Substitua este texto por uma breve nota sobre a imagem.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <button class="carousel-arrow prev" aria-label="Imagem anterior">‹</button>
+    <button class="carousel-arrow next" aria-label="Próxima imagem">›</button>
+    <div class="carousel-meta-row">
+      <span class="carousel-count mono">1 / 4</span>
+      <div class="carousel-dots"></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="series-pager mono">
+  <a class="to-index" href="index.html#series">← Todas as séries</a>
+  <a href="serie-mudanca.html"><span class="next-label">Próxima série </span><span class="next-name">Mudança →</span></a>
+</div>
+
+<footer id="contato">
+  <span class="kicker mono">Contato</span>
+  <p class="contact-line">
+    <a class="email" href="https://instagram.com/paulo_alessandro" target="_blank" rel="noopener">@paulo_alessandro</a>
+    <span class="sep mono">·</span>
+    <a class="email" href="https://instagram.com/acervo.paulomelo" target="_blank" rel="noopener">@acervo.paulomelo</a>
+  </p>
+  <p class="copyright mono">© 2026 Paulo Melo</p>
+</footer>
+
+<script src="script.js"></script>
+<script src="data.js"></script>
+<script>
+  renderSeriePage('autoral');
+</script>
+</body>
+</html>

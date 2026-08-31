@@ -1,0 +1,63 @@
+backend:
+  name: github
+  repo: 1pauloalessandro-gif/site-paulo-melo   # ex: pauloamelo/site-paulo-melo
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "hero"
+    label: "Hero (capa do site)"
+    files:
+      - name: "hero"
+        label: "Foto de capa do site"
+        file: "content/hero.json"
+        fields:
+          - { label: "Imagem (WebP)", name: "image", widget: "image" }
+          - { label: "Texto alternativo (descreve a foto)", name: "alt", widget: "string" }
+
+  - name: "series"
+    label: "Séries"
+    folder: "content/series"
+    format: "json"
+    create: true
+    slug: "{{fields.slug}}"
+    fields:
+      - { label: "Nome da série", name: "title", widget: "string" }
+      - { label: "Slug (sem espaço/acento, ex: mudanca)", name: "slug", widget: "string" }
+      - { label: "Ano", name: "ano", widget: "string" }
+      - { label: "Local", name: "local", widget: "string", required: false }
+      - { label: "Texto de introdução", name: "intro", widget: "text" }
+      - { label: "Imagem de capa (aparece na home)", name: "cover", widget: "image" }
+      - label: "Imagens da série"
+        name: "plates"
+        widget: "list"
+        summary: "{{title}}"
+        fields:
+          - { label: "Título", name: "title", widget: "string" }
+          - { label: "Ano", name: "ano", widget: "string", required: false }
+          - { label: "Local", name: "local", widget: "string", required: false }
+          - { label: "Câmera", name: "camera", widget: "string", required: false }
+          - { label: "Filme/ISO", name: "filme", widget: "string", required: false }
+          - { label: "Legenda", name: "desc", widget: "text", required: false }
+          - { label: "Imagem (WebP)", name: "image", widget: "image" }
+
+  - name: "series_index"
+    label: "Ordem das Séries"
+    files:
+      - name: "index"
+        label: "Ordem em que aparecem no site"
+        file: "content/series-index.json"
+        fields:
+          - label: "Séries (a ordem aqui é a ordem no site)"
+            name: "order"
+            widget: "list"
+            field:
+              label: "Série"
+              name: "slug"
+              widget: "relation"
+              collection: "series"
+              search_fields: ["title"]
+              value_field: "slug"
+              display_fields: ["title"]
