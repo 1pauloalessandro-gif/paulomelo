@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: 1pauloalessandro-gif/site-paulo-melo   # ex: pauloamelo/site-paulo-melo
+  repo: 1pauloalessandro-gif/paulomelo   # ex: pauloamelo/site-paulo-melo
   branch: main
 
 media_folder: "images/uploads"
