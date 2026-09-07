@@ -57,8 +57,8 @@ nav a{ text-decoration:none; }
 /* ---- Hero (computador): uma foto estática, definida em content/hero-desktop.json (ver loadHero() em data.js) ---- */
 .hero-desktop{
   position:relative;
-  height:100vh;
-  min-height:600px;
+  height:82vh;
+  min-height:520px;
   overflow:hidden;
   background: var(--paper-alt);
 }
@@ -90,8 +90,8 @@ nav a{ text-decoration:none; }
 .hero-single{
   display:none;
   position:relative;
-  height:100vh;
-  min-height:600px;
+  height:82vh;
+  min-height:480px;
   overflow:hidden;
   background: var(--paper-alt);
 }
