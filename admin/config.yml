@@ -14,8 +14,7 @@ collections:
         label: "Foto de capa do site"
         file: "content/hero.json"
         fields:
-          - { label: "Imagem (JPG)", name: "image_jpg", widget: "image" }
-          - { label: "Imagem (WebP)", name: "image_webp", widget: "image", required: false }
+          - { label: "Imagem (WebP)", name: "image_webp", widget: "image" }
           - { label: "Texto alternativo (descreve a foto)", name: "alt", widget: "string" }
 
   - name: "series"
@@ -42,8 +41,7 @@ collections:
           - { label: "Câmera", name: "camera", widget: "string", required: false }
           - { label: "Filme/ISO", name: "filme", widget: "string", required: false }
           - { label: "Legenda", name: "desc", widget: "text", required: false }
-          - { label: "Imagem (JPG)", name: "image_jpg", widget: "image" }
-          - { label: "Imagem (WebP)", name: "image_webp", widget: "image", required: false }
+          - { label: "Imagem (WebP)", name: "image_webp", widget: "image" }
 
   - name: "series_index"
     label: "Ordem das Séries"

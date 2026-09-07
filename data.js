@@ -22,11 +22,9 @@ async function loadHero() {
   if (!wrap) return;
   try {
     var hero = await fetchJSON('content/hero.json');
-    var source = wrap.querySelector('picture source');
-    var img = wrap.querySelector('picture img');
-    if (source && hero.image_webp) source.setAttribute('srcset', hero.image_webp);
+    var img = wrap.querySelector('img');
     if (img) {
-      if (hero.image_jpg) img.setAttribute('src', hero.image_jpg);
+      if (hero.image_webp) img.setAttribute('src', hero.image_webp);
       if (hero.alt) img.setAttribute('alt', hero.alt);
     }
   } catch (e) {
@@ -146,9 +144,7 @@ async function renderSeriePage(slug) {
       var metaLine = [p.local, p.ano].filter(Boolean).join(', ');
       html += '' +
         '<div class="carousel-slide">' +
-        '<div class="slide-img"><picture>' +
-        (p.image_webp ? '<source srcset="' + p.image_webp + '" type="image/webp">' : '') +
-        '<img src="' + p.image_jpg + '" alt="' + p.title + '"></picture></div>' +
+        '<div class="slide-img"><img src="' + p.image_webp + '" alt="' + p.title + '"></div>' +
         '<div class="slide-info">' +
         '<p class="plate-num">' + num + '</p>' +
         '<h3>' + p.title + '</h3>' +

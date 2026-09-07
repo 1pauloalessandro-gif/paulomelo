@@ -13,8 +13,7 @@
       "camera": "",
       "filme": "",
       "desc": "Substitua este texto por uma breve nota sobre a imagem.",
-      "image_jpg": "/images/uploads/DSCF5907.webp",
-      "image_webp": ""
+      "image_webp": "/images/uploads/DSCF5907.webp"
     },
     {
       "title": "Título da imagem",
@@ -23,8 +22,7 @@
       "camera": "",
       "filme": "",
       "desc": "Substitua este texto por uma breve nota sobre a imagem.",
-      "image_jpg": "/images/uploads/DSCF5820.webp",
-      "image_webp": ""
+      "image_webp": "/images/uploads/DSCF5820.webp"
     },
     {
       "title": "Título da imagem",
@@ -33,8 +31,7 @@
       "camera": "",
       "filme": "",
       "desc": "Substitua este texto por uma breve nota sobre a imagem.",
-      "image_jpg": "/images/uploads/DSCF5687.webp",
-      "image_webp": ""
+      "image_webp": "/images/uploads/DSCF5687.webp"
     },
     {
       "title": "Título da imagem",
@@ -43,8 +40,7 @@
       "camera": "",
       "filme": "",
       "desc": "Substitua este texto por uma breve nota sobre a imagem.",
-      "image_jpg": "https://picsum.photos/seed/autoral4/1000/1250",
-      "image_webp": ""
+      "image_webp": "https://picsum.photos/seed/autoral4/1000/1250"
     }
   ]
 }
