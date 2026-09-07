@@ -30,11 +30,13 @@
   </div>
 </nav>
 
-<!-- HERO: imagem trocada pelo painel /admin (coleção "Hero (capa do site)"); este <img> é só o placeholder antes do JS carregar content/hero.json -->
-<div class="hero">
-  <img src="images/uploads/DSCF9818.webp" alt="Paisagem da Serra da Mantiqueira">
-  <div class="hero-caption">
-    <p class="title display">Paulo<br>Melo</p>
+<!-- HERO: faixa contínua com fotos de todas as séries — montada dinamicamente por loadHero() (data.js); ver initMarqueeSpeed() ali pra velocidade -->
+<div class="hero-marquee">
+  <div class="hero-marquee-track" id="heroMarqueeTrack">
+    <!-- preenchido dinamicamente por loadHero() (data.js) a partir das fotos de todas as séries -->
+  </div>
+  <div class="hero-marquee-scrim">
+    <p class="hero-marquee-title display">Paulo<br>Melo</p>
   </div>
 </div>
 
@@ -49,8 +51,8 @@
     <aside class="series-menu series-menu--home">
       <span class="group-label mono">Séries</span>
       <ul>
-        <li><a href="serie-mudanca.html"><span class="n">01</span> Janela do meu escritório</a></li>
-        <li><a href="serie-autoral.html"><span class="n">02</span> Flores e suas cores</a></li>
+        <li><a href="serie-janela-do-meu-escritorio.html"><span class="n">01</span> Janela do meu escritório</a></li>
+        <li><a href="serie-flores-e-suas-cores.html"><span class="n">02</span> Flores e suas cores</a></li>
         <li><a href="serie-o-que-fica.html"><span class="n">03</span> Projeto: O que fica</a></li>
       </ul>
     </aside>

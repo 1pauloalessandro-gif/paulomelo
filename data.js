@@ -18,14 +18,13 @@ function toRoman(n) {
 }
 
 async function loadHero() {
-  var wrap = document.querySelector('.hero');
-  if (!wrap) return;
-  var img = wrap.querySelector('img');
-  if (!img) return;
+  var track = document.getElementById('heroMarqueeTrack');
+  if (!track) return;
 
-  // Monta um "banco" com as fotos de todas as séries e sorteia uma pra
-  // exibir no hero — assim a home mostra uma foto diferente a cada visita,
-  // em vez de sempre a mesma capa fixa.
+  // Monta um "banco" com as fotos de todas as séries e preenche a faixa
+  // do hero com elas (em ordem embaralhada) — a faixa rola continuamente
+  // via CSS (.hero-marquee-track), então a home mostra fotos de todas as
+  // séries em vez de uma capa fixa.
   try {
     var slugs = await loadSeriesOrder();
     var pool = [];
@@ -33,30 +32,37 @@ async function loadHero() {
       try {
         var series = await loadSeries(slugs[i]);
         (series.plates || []).forEach(function (p) {
-          if (p.image_webp) pool.push({ src: p.image_webp, alt: p.title || ('Fotografia da série ' + series.title) });
+          if (p.image_webp) pool.push(p.image_webp);
         });
       } catch (e) {
         // série referenciada no índice mas sem arquivo ainda: ignora
       }
     }
-    if (pool.length) {
-      var pick = pool[Math.floor(Math.random() * pool.length)];
-      img.setAttribute('src', pick.src);
-      img.setAttribute('alt', pick.alt);
-      return;
-    }
-  } catch (e) {
-    // segue pro fallback abaixo
-  }
+    if (!pool.length) return; // sem fotos ainda: mantém o que já estiver no HTML
 
-  // Fallback: hero fixo em content/hero.json (usado só se ainda não
-  // houver nenhuma foto cadastrada em nenhuma série)
-  try {
-    var hero = await fetchJSON('content/hero.json');
-    if (hero.image_webp) img.setAttribute('src', hero.image_webp);
-    if (hero.alt) img.setAttribute('alt', hero.alt);
+    // embaralha a ordem, assim a faixa fica diferente a cada carregamento
+    for (var j = pool.length - 1; j > 0; j--) {
+      var k = Math.floor(Math.random() * (j + 1));
+      var tmp = pool[j]; pool[j] = pool[k]; pool[k] = tmp;
+    }
+
+    // duplica a lista (a faixa mostra 2 cópias seguidas) pra criar o loop
+    // contínuo sem emenda — ver @keyframes hero-marquee-scroll em styles.css
+    var doubled = pool.concat(pool);
+    track.innerHTML = doubled.map(function (src) {
+      return '<img src="' + src + '" alt="">';
+    }).join('');
+
+    // ajusta a duração da animação pela largura real da faixa, pra manter
+    // uma velocidade parecida independente de quantas fotos existirem
+    requestAnimationFrame(function () {
+      var halfWidth = track.scrollWidth / 2;
+      var pxPerSecond = 34;
+      var duration = Math.max(20, halfWidth / pxPerSecond);
+      track.style.animationDuration = duration + 's';
+    });
   } catch (e) {
-    // sem dado ainda: mantém a imagem que já está no HTML
+    // sem dado ainda: mantém o que já estiver no HTML
   }
 }
 
