@@ -1,64 +1,73 @@
 {
-  "title": "Mudança",
+  "title": "Janela do meu escritório",
   "slug": "mudanca",
-  "ano": "2026",
-  "local": "São Francisco Xavier",
-  "intro": "Substitua por um texto curto sobre a série: o que ela documenta, o período, o que levou você a fazer essas imagens.",
-  "cover": "https://picsum.photos/seed/xavier-capa1/900/700",
+  "ano": "2023–2026",
+  "local": "São Paulo",
+  "intro": "Por dois anos e meio, fotografei sempre da mesma janela — a vista do meu escritório em São Paulo. A cidade lá fora seguia seu ritmo repetitivo: o mesmo horizonte, a mesma luz previsível, os mesmos prédios. Mas em meio a essa rotina, alguns dias se distinguiam — uma luz diferente, um movimento inesperado, um instante que parecia pedir pra ser guardado. Esta série reúne essas exceções: o que ficou de um olhar repetido sobre a mesma paisagem, dia após dia.",
+  "cover": "/paulomelo/images/uploads/mudanca/DSCF9354.webp",
   "plates": [
     {
-      "title": "Janela sobre o vale",
-      "ano": "2026",
-      "local": "São Francisco Xavier",
+      "title": "",
+      "ano": "",
+      "local": "",
       "camera": "",
       "filme": "",
-      "desc": "Substitua este texto por uma breve nota sobre a imagem — o que ela guarda, ou o que levou até ela.",
-      "image_webp": "https://picsum.photos/seed/xavier1/1000/1250"
+      "desc": "",
+      "image_webp": "/paulomelo/images/uploads/mudanca/DSCF9354.webp"
     },
     {
-      "title": "Pórtico",
-      "ano": "2026",
-      "local": "São Francisco Xavier",
+      "title": "",
+      "ano": "",
+      "local": "",
       "camera": "",
       "filme": "",
-      "desc": "Substitua este texto por uma breve nota sobre a imagem — o que ela guarda, ou o que levou até ela.",
-      "image_webp": "https://picsum.photos/seed/xavier2/1000/1250"
+      "desc": "",
+      "image_webp": "/paulomelo/images/uploads/mudanca/DSCF9826.webp"
     },
     {
-      "title": "Terreno",
-      "ano": "2026",
-      "local": "São Francisco Xavier",
+      "title": "",
+      "ano": "",
+      "local": "",
       "camera": "",
       "filme": "",
-      "desc": "Substitua este texto por uma breve nota sobre a imagem — o que ela guarda, ou o que levou até ela.",
-      "image_webp": "https://picsum.photos/seed/xavier3/1000/1250"
+      "desc": "",
+      "image_webp": "/paulomelo/images/uploads/mudanca/IMG_7478.webp"
     },
     {
-      "title": "Varanda",
-      "ano": "2026",
-      "local": "São Francisco Xavier",
+      "title": "",
+      "ano": "",
+      "local": "",
       "camera": "",
       "filme": "",
-      "desc": "Substitua este texto por uma breve nota sobre a imagem — o que ela guarda, ou o que levou até ela.",
-      "image_webp": "https://picsum.photos/seed/xavier4/1000/1250"
+      "desc": "",
+      "image_webp": "/paulomelo/images/uploads/mudanca/IMG_7494.webp"
     },
     {
-      "title": "Névoa",
-      "ano": "2026",
-      "local": "São Francisco Xavier",
+      "title": "",
+      "ano": "",
+      "local": "",
       "camera": "",
       "filme": "",
-      "desc": "Substitua este texto por uma breve nota sobre a imagem — o que ela guarda, ou o que levou até ela.",
-      "image_webp": "https://picsum.photos/seed/xavier5/1000/1250"
+      "desc": "",
+      "image_webp": "/paulomelo/images/uploads/mudanca/IMG_7938.webp"
     },
     {
-      "title": "Caminho",
-      "ano": "2026",
-      "local": "São Francisco Xavier",
+      "title": "",
+      "ano": "",
+      "local": "",
       "camera": "",
       "filme": "",
-      "desc": "Substitua este texto por uma breve nota sobre a imagem — o que ela guarda, ou o que levou até ela.",
-      "image_webp": "https://picsum.photos/seed/xavier6/1000/1250"
+      "desc": "",
+      "image_webp": "/paulomelo/images/uploads/mudanca/MG_0401.webp"
+    },
+    {
+      "title": "",
+      "ano": "",
+      "local": "",
+      "camera": "",
+      "filme": "",
+      "desc": "",
+      "image_webp": "/paulomelo/images/uploads/mudanca/MG_9150.webp"
     }
   ]
 }
