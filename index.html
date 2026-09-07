@@ -30,13 +30,19 @@
   </div>
 </nav>
 
-<!-- HERO: faixa contínua com fotos de todas as séries — montada dinamicamente por loadHero() (data.js); ver initMarqueeSpeed() ali pra velocidade -->
+<!-- HERO: no computador, faixa contínua com fotos de todas as séries; no celular, uma foto única (cheia, sem corte estranho) — decidido e montado por loadHero() (data.js). Só um dos dois blocos abaixo fica visível por vez (ver media query em styles.css). -->
 <div class="hero-marquee">
   <div class="hero-marquee-track" id="heroMarqueeTrack">
     <!-- preenchido dinamicamente por loadHero() (data.js) a partir das fotos de todas as séries -->
   </div>
   <div class="hero-marquee-scrim">
     <p class="hero-marquee-title display">Paulo<br>Melo</p>
+  </div>
+</div>
+<div class="hero-single" id="heroSingle">
+  <img id="heroSingleImg" alt="">
+  <div class="hero-single-scrim">
+    <p class="hero-single-title display">Paulo<br>Melo</p>
   </div>
 </div>
 

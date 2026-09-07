@@ -17,49 +17,88 @@ function toRoman(n) {
   return res;
 }
 
-async function loadHero() {
-  var track = document.getElementById('heroMarqueeTrack');
-  if (!track) return;
+// Pré-carrega uma imagem antes de exibi-la (evita mostrar foto pela metade
+// ou "quebrada" enquanto ainda baixa). Nunca trava mais que timeoutMs por
+// foto, mesmo se ela falhar ou demorar demais numa rede lenta.
+function preloadImage(src, timeoutMs) {
+  return new Promise(function (resolve) {
+    var done = false;
+    function finish() { if (!done) { done = true; resolve(); } }
+    var img = new Image();
+    img.onload = finish;
+    img.onerror = finish;
+    img.src = src;
+    setTimeout(finish, timeoutMs || 4500);
+  });
+}
 
-  // Monta um "banco" com as fotos de todas as séries e preenche a faixa
-  // do hero com elas (em ordem embaralhada) — a faixa rola continuamente
-  // via CSS (.hero-marquee-track), então a home mostra fotos de todas as
-  // séries em vez de uma capa fixa.
+async function loadHero() {
+  var isMobile = window.matchMedia('(max-width: 760px)').matches;
+  var track = document.getElementById('heroMarqueeTrack');
+  var singleWrap = document.getElementById('heroSingle');
+  var singleImg = document.getElementById('heroSingleImg');
+
   try {
     var slugs = await loadSeriesOrder();
+
+    // busca todas as séries em paralelo (bem mais rápido que uma de cada
+    // vez, principalmente no primeiro acesso, sem nada em cache ainda)
+    var seriesList = await Promise.all(slugs.map(function (slug) {
+      return loadSeries(slug).catch(function () { return null; });
+    }));
+
     var pool = [];
-    for (var i = 0; i < slugs.length; i++) {
-      try {
-        var series = await loadSeries(slugs[i]);
-        (series.plates || []).forEach(function (p) {
-          if (p.image_webp) pool.push(p.image_webp);
-        });
-      } catch (e) {
-        // série referenciada no índice mas sem arquivo ainda: ignora
-      }
-    }
+    seriesList.forEach(function (series) {
+      if (!series) return; // série referenciada no índice mas sem arquivo ainda
+      (series.plates || []).forEach(function (p) {
+        if (p.image_webp) pool.push(p.image_webp);
+      });
+    });
     if (!pool.length) return; // sem fotos ainda: mantém o que já estiver no HTML
 
-    // embaralha a ordem, assim a faixa fica diferente a cada carregamento
+    // embaralha a ordem, assim a foto/faixa muda a cada carregamento
     for (var j = pool.length - 1; j > 0; j--) {
       var k = Math.floor(Math.random() * (j + 1));
       var tmp = pool[j]; pool[j] = pool[k]; pool[k] = tmp;
     }
 
+    // ---- Celular: uma foto só, cheia (sem faixa rolando) ----
+    if (isMobile) {
+      if (!singleWrap || !singleImg) return;
+      var pick = pool[0];
+      await preloadImage(pick);
+      singleImg.setAttribute('src', pick);
+      singleWrap.classList.add('ready');
+      return;
+    }
+
+    // ---- Computador: faixa contínua ----
+    if (!track) return;
+
+    // limita quantas fotos entram na faixa — baixa menos dado (mais rápido
+    // pra carregar) e cada foto fica mais tempo visível antes de sair de tela
+    var sample = pool.slice(0, 10);
+
+    // só monta/anima a faixa depois que essas fotos já baixaram, pra não
+    // mostrar imagem pela metade nem começar a rolar antes de carregar
+    await Promise.all(sample.map(function (src) { return preloadImage(src); }));
+
     // duplica a lista (a faixa mostra 2 cópias seguidas) pra criar o loop
     // contínuo sem emenda — ver @keyframes hero-marquee-scroll em styles.css
-    var doubled = pool.concat(pool);
+    var doubled = sample.concat(sample);
     track.innerHTML = doubled.map(function (src) {
       return '<img src="' + src + '" alt="">';
     }).join('');
 
     // ajusta a duração da animação pela largura real da faixa, pra manter
-    // uma velocidade parecida independente de quantas fotos existirem
+    // uma velocidade parecida (e mais lenta que antes) independente de
+    // quantas fotos existirem
     requestAnimationFrame(function () {
       var halfWidth = track.scrollWidth / 2;
-      var pxPerSecond = 34;
-      var duration = Math.max(20, halfWidth / pxPerSecond);
+      var pxPerSecond = 18;
+      var duration = Math.max(30, halfWidth / pxPerSecond);
       track.style.animationDuration = duration + 's';
+      track.classList.add('ready');
     });
   } catch (e) {
     // sem dado ainda: mantém o que já estiver no HTML
