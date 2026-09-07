@@ -10,9 +10,19 @@ collections:
   - name: "hero"
     label: "Hero (capa do site)"
     files:
-      - name: "hero"
-        label: "Foto de capa do site"
+      - name: "hero-mobile"
+        label: "Foto de capa — celular"
         file: "content/hero.json"
+        media_folder: "/images/uploads/hero-mobile"
+        public_folder: "/paulomelo/images/uploads/hero-mobile"
+        fields:
+          - { label: "Imagem (WebP)", name: "image_webp", widget: "image" }
+          - { label: "Texto alternativo (descreve a foto)", name: "alt", widget: "string" }
+      - name: "hero-desktop"
+        label: "Foto de capa — computador"
+        file: "content/hero-desktop.json"
+        media_folder: "/images/uploads/hero-desktop"
+        public_folder: "/paulomelo/images/uploads/hero-desktop"
         fields:
           - { label: "Imagem (WebP)", name: "image_webp", widget: "image" }
           - { label: "Texto alternativo (descreve a foto)", name: "alt", widget: "string" }

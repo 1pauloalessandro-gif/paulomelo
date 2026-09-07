@@ -30,13 +30,11 @@
   </div>
 </nav>
 
-<!-- HERO: no computador, faixa contínua com fotos de todas as séries; no celular, uma foto única (cheia, sem corte estranho) — decidido e montado por loadHero() (data.js). Só um dos dois blocos abaixo fica visível por vez (ver media query em styles.css). -->
-<div class="hero-marquee">
-  <div class="hero-marquee-track" id="heroMarqueeTrack">
-    <!-- preenchido dinamicamente por loadHero() (data.js) a partir das fotos de todas as séries -->
-  </div>
-  <div class="hero-marquee-scrim">
-    <p class="hero-marquee-title display">Paulo<br>Melo</p>
+<!-- HERO: foto ESTÁTICA, uma pro computador (content/hero-desktop.json, pasta images/uploads/hero-desktop/) e outra pro celular (content/hero.json, pasta images/uploads/hero-mobile/) — decidido e montado por loadHero() (data.js). Só um dos dois blocos abaixo fica visível por vez (ver media query em styles.css). -->
+<div class="hero-desktop" id="heroDesktop">
+  <img id="heroDesktopImg" alt="">
+  <div class="hero-desktop-scrim">
+    <p class="hero-desktop-title display">Paulo<br>Melo</p>
   </div>
 </div>
 <div class="hero-single" id="heroSingle">

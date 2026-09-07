@@ -34,74 +34,34 @@ function preloadImage(src, timeoutMs) {
 
 async function loadHero() {
   var isMobile = window.matchMedia('(max-width: 760px)').matches;
-  var track = document.getElementById('heroMarqueeTrack');
-  var singleWrap = document.getElementById('heroSingle');
-  var singleImg = document.getElementById('heroSingleImg');
 
+  // ---- Celular: foto ESTÁTICA definida em content/hero.json ----
+  // (painel /admin, coleção "Hero (celular)", ou editando o arquivo direto —
+  // fotos ficam em images/uploads/hero-mobile/)
+  if (isMobile) {
+    await loadStaticHero('content/hero.json', 'heroSingle', 'heroSingleImg');
+    return;
+  }
+
+  // ---- Computador: foto ESTÁTICA definida em content/hero-desktop.json ----
+  // (painel /admin, coleção "Hero (computador)", ou editando o arquivo direto —
+  // fotos ficam em images/uploads/hero-desktop/)
+  await loadStaticHero('content/hero-desktop.json', 'heroDesktop', 'heroDesktopImg');
+}
+
+async function loadStaticHero(jsonPath, wrapId, imgId) {
+  var wrap = document.getElementById(wrapId);
+  var img = document.getElementById(imgId);
+  if (!wrap || !img) return;
   try {
-    var slugs = await loadSeriesOrder();
-
-    // busca todas as séries em paralelo (bem mais rápido que uma de cada
-    // vez, principalmente no primeiro acesso, sem nada em cache ainda)
-    var seriesList = await Promise.all(slugs.map(function (slug) {
-      return loadSeries(slug).catch(function () { return null; });
-    }));
-
-    var pool = [];
-    seriesList.forEach(function (series) {
-      if (!series) return; // série referenciada no índice mas sem arquivo ainda
-      (series.plates || []).forEach(function (p) {
-        if (p.image_webp) pool.push(p.image_webp);
-      });
-    });
-    if (!pool.length) return; // sem fotos ainda: mantém o que já estiver no HTML
-
-    // embaralha a ordem, assim a foto/faixa muda a cada carregamento
-    for (var j = pool.length - 1; j > 0; j--) {
-      var k = Math.floor(Math.random() * (j + 1));
-      var tmp = pool[j]; pool[j] = pool[k]; pool[k] = tmp;
-    }
-
-    // ---- Celular: uma foto só, cheia (sem faixa rolando) ----
-    if (isMobile) {
-      if (!singleWrap || !singleImg) return;
-      var pick = pool[0];
-      await preloadImage(pick);
-      singleImg.setAttribute('src', pick);
-      singleWrap.classList.add('ready');
-      return;
-    }
-
-    // ---- Computador: faixa contínua ----
-    if (!track) return;
-
-    // limita quantas fotos entram na faixa — baixa menos dado (mais rápido
-    // pra carregar) e cada foto fica mais tempo visível antes de sair de tela
-    var sample = pool.slice(0, 10);
-
-    // só monta/anima a faixa depois que essas fotos já baixaram, pra não
-    // mostrar imagem pela metade nem começar a rolar antes de carregar
-    await Promise.all(sample.map(function (src) { return preloadImage(src); }));
-
-    // duplica a lista (a faixa mostra 2 cópias seguidas) pra criar o loop
-    // contínuo sem emenda — ver @keyframes hero-marquee-scroll em styles.css
-    var doubled = sample.concat(sample);
-    track.innerHTML = doubled.map(function (src) {
-      return '<img src="' + src + '" alt="">';
-    }).join('');
-
-    // ajusta a duração da animação pela largura real da faixa, pra manter
-    // uma velocidade parecida (e mais lenta que antes) independente de
-    // quantas fotos existirem
-    requestAnimationFrame(function () {
-      var halfWidth = track.scrollWidth / 2;
-      var pxPerSecond = 18;
-      var duration = Math.max(30, halfWidth / pxPerSecond);
-      track.style.animationDuration = duration + 's';
-      track.classList.add('ready');
-    });
+    var hero = await fetchJSON(jsonPath);
+    if (!hero.image_webp) return; // sem foto cadastrada ainda: mantém o HTML como está
+    await preloadImage(hero.image_webp);
+    img.setAttribute('src', hero.image_webp);
+    if (hero.alt) img.setAttribute('alt', hero.alt);
+    wrap.classList.add('ready');
   } catch (e) {
-    // sem dado ainda: mantém o que já estiver no HTML
+    // sem esse JSON ainda: mantém o que já estiver no HTML
   }
 }
 
