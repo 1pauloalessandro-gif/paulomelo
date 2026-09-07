@@ -73,7 +73,36 @@ function initLightboxGrid() {
   updateCount();
 }
 
+// Header fixo que some ao rolar pra baixo e volta ao rolar pra cima.
+// Roda em todas as páginas (o <nav> é igual em todas), independente de data.js.
+function initAutoHideNav() {
+  var nav = document.querySelector('nav');
+  if (!nav) return;
+
+  var lastY = window.scrollY;
+  var ticking = false;
+
+  function onScroll() {
+    var y = window.scrollY;
+    if (y > lastY && y > 120) {
+      nav.classList.add('nav-hidden'); // rolando pra baixo, além do topo: esconde
+    } else if (y < lastY) {
+      nav.classList.remove('nav-hidden'); // rolando pra cima: mostra
+    }
+    lastY = y;
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      window.requestAnimationFrame(onScroll);
+      ticking = true;
+    }
+  }, { passive: true });
+}
+
 document.addEventListener('DOMContentLoaded', function () {
+  initAutoHideNav();
   // Só inicializa aqui a grade que já vem pronta no HTML (sem data.js).
   // Se a página usa data.js, ele mesmo chama initLightboxGrid depois de montar as fotos.
   if (!document.body.hasAttribute('data-driven')) {
