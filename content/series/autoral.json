@@ -1,46 +1,73 @@
 {
-  "title": "Autoral",
+  "title": "Flores e suas cores",
   "slug": "autoral",
   "ano": "2025–2026",
   "local": "",
-  "intro": "TEXTO TESTE TESTE TESTE",
-  "cover": "/paulomelo/images/uploads/DSCF5920.webp",
+  "intro": "Cada flor é uma cor que não se repete. Esta série é um exercício de olhar para essa variedade — o rosa que não é bem rosa, o amarelo que vira laranja na sombra — e reconhecer, em cada uma, uma beleza que não pede comparação.",
+  "cover": "/paulomelo/images/uploads/Flores%20e%20suas%20cores/DSCF0564.webp",
   "plates": [
     {
-      "title": "Título da imagem",
-      "ano": "2025",
-      "local": "Local",
+      "title": "",
+      "ano": "",
+      "local": "",
       "camera": "",
       "filme": "",
-      "desc": "Substitua este texto por uma breve nota sobre a imagem.",
-      "image_webp": "/paulomelo/images/uploads/DSCF5907.webp"
+      "desc": "",
+      "image_webp": "/paulomelo/images/uploads/Flores%20e%20suas%20cores/DSCF0564.webp"
     },
     {
-      "title": "Título da imagem",
-      "ano": "2025",
-      "local": "Local",
+      "title": "",
+      "ano": "",
+      "local": "",
       "camera": "",
       "filme": "",
-      "desc": "Substitua este texto por uma breve nota sobre a imagem.",
-      "image_webp": "/paulomelo/images/uploads/DSCF5820.webp"
+      "desc": "",
+      "image_webp": "/paulomelo/images/uploads/Flores%20e%20suas%20cores/DSCF0569.webp"
     },
     {
-      "title": "Título da imagem",
-      "ano": "2026",
-      "local": "Local",
+      "title": "",
+      "ano": "",
+      "local": "",
       "camera": "",
       "filme": "",
-      "desc": "Substitua este texto por uma breve nota sobre a imagem.",
-      "image_webp": "/paulomelo/images/uploads/DSCF5687.webp"
+      "desc": "",
+      "image_webp": "/paulomelo/images/uploads/Flores%20e%20suas%20cores/DSCF5907.webp"
     },
     {
-      "title": "Título da imagem",
-      "ano": "2026",
-      "local": "Local",
+      "title": "",
+      "ano": "",
+      "local": "",
       "camera": "",
       "filme": "",
-      "desc": "Substitua este texto por uma breve nota sobre a imagem.",
-      "image_webp": "https://picsum.photos/seed/autoral4/1000/1250"
+      "desc": "",
+      "image_webp": "/paulomelo/images/uploads/Flores%20e%20suas%20cores/DSCF8105.webp"
+    },
+    {
+      "title": "",
+      "ano": "",
+      "local": "",
+      "camera": "",
+      "filme": "",
+      "desc": "",
+      "image_webp": "/paulomelo/images/uploads/Flores%20e%20suas%20cores/DSCF8106.webp"
+    },
+    {
+      "title": "",
+      "ano": "",
+      "local": "",
+      "camera": "",
+      "filme": "",
+      "desc": "",
+      "image_webp": "/paulomelo/images/uploads/Flores%20e%20suas%20cores/DSCF8108.webp"
+    },
+    {
+      "title": "",
+      "ano": "",
+      "local": "",
+      "camera": "",
+      "filme": "",
+      "desc": "",
+      "image_webp": "/paulomelo/images/uploads/Flores%20e%20suas%20cores/DSCF8109.webp"
     }
   ]
 }
