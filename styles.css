@@ -201,18 +201,16 @@ section.series-index{
 .series-menu a.current .n{ color: var(--clay); }
 .series-menu a:hover{ color: var(--ink); }
 
-/* ---- Grade de fotos da série (linhas justificadas — cada foto mantém a proporção original, sem cortar) ---- */
+/* ---- Grade de fotos da série (3 colunas fixas — cada foto mantém a proporção original, sem cortar) ---- */
 .plates-grid{
   padding-top: 2.4rem;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 14px;
 }
 .plate-cell{
   position:relative;
   display:block;
-  height: 320px;
-  max-width: 100%;
   overflow:hidden;
   background: var(--paper-alt);
   cursor: pointer;
@@ -220,7 +218,7 @@ section.series-index{
   padding: 0;
 }
 .plate-cell img{
-  height:100%; width:auto; display:block;
+  width:100%; height:auto; display:block;
   filter: saturate(0.92);
   transition: transform 0.5s ease;
 }
@@ -243,7 +241,7 @@ section.series-index{
 .plate-cell .cap .title{ font-family:"Fraunces", serif; font-size:0.92rem; margin:0 0 0.2rem; }
 .plate-cell .cap .meta{ font-size:0.58rem; opacity:0.9; }
 
-@media (max-width: 1050px){ .plate-cell{ height: 260px; } }
+@media (max-width: 1050px){ .plates-grid{ gap: 10px; } }
 
 /* ---- Visualizador em tela cheia (abre ao clicar numa foto da grade, scroll lateral entre as fotos) ---- */
 .lightbox{
