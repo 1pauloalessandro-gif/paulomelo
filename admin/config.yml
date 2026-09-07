@@ -35,7 +35,7 @@ collections:
         widget: "list"
         summary: "{{title}}"
         fields:
-          - { label: "Título", name: "title", widget: "string" }
+          - { label: "Título (opcional)", name: "title", widget: "string", required: false }
           - { label: "Ano", name: "ano", widget: "string", required: false }
           - { label: "Local", name: "local", widget: "string", required: false }
           - { label: "Câmera", name: "camera", widget: "string", required: false }

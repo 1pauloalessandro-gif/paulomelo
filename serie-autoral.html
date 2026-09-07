@@ -39,7 +39,7 @@
   <p class="intro">Substitua por um texto curto sobre esta série: o fio condutor entre as imagens, o que você estava buscando.</p>
 </section>
 
-<!-- Segunda quebra: menu de séries ao lado do carrossel -->
+<!-- Segunda quebra: menu de séries ao lado da grade de fotos -->
 <div class="series-layout">
 
   <aside class="series-menu">
@@ -51,60 +51,27 @@
     </ul>
   </aside>
 
-  <div class="carousel">
-    <div class="carousel-viewport">
-      <div class="carousel-track">
-
-        <div class="carousel-slide">
-          <div class="slide-img"><img src="https://picsum.photos/seed/autoral1/1000/1250" alt="Imagem autoral 1"></div>
-          <div class="slide-info">
-            <p class="plate-num">I</p>
-            <h3>Título da imagem</h3>
-            <p class="meta mono">Local, 2025</p>
-            <p class="desc">Substitua este texto por uma breve nota sobre a imagem.</p>
-          </div>
-        </div>
-
-        <div class="carousel-slide">
-          <div class="slide-img"><img src="https://picsum.photos/seed/autoral2/1000/1250" alt="Imagem autoral 2"></div>
-          <div class="slide-info">
-            <p class="plate-num">II</p>
-            <h3>Título da imagem</h3>
-            <p class="meta mono">Local, 2025</p>
-            <p class="desc">Substitua este texto por uma breve nota sobre a imagem.</p>
-          </div>
-        </div>
-
-        <div class="carousel-slide">
-          <div class="slide-img"><img src="https://picsum.photos/seed/autoral3/1000/1250" alt="Imagem autoral 3"></div>
-          <div class="slide-info">
-            <p class="plate-num">III</p>
-            <h3>Título da imagem</h3>
-            <p class="meta mono">Local, 2026</p>
-            <p class="desc">Substitua este texto por uma breve nota sobre a imagem.</p>
-          </div>
-        </div>
-
-        <div class="carousel-slide">
-          <div class="slide-img"><img src="https://picsum.photos/seed/autoral4/1000/1250" alt="Imagem autoral 4"></div>
-          <div class="slide-info">
-            <p class="plate-num">IV</p>
-            <h3>Título da imagem</h3>
-            <p class="meta mono">Local, 2026</p>
-            <p class="desc">Substitua este texto por uma breve nota sobre a imagem.</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <button class="carousel-arrow prev" aria-label="Imagem anterior">‹</button>
-    <button class="carousel-arrow next" aria-label="Próxima imagem">›</button>
-    <div class="carousel-meta-row">
-      <span class="carousel-count mono">1 / 4</span>
-      <div class="carousel-dots"></div>
-    </div>
+  <div class="plates-grid" id="platesGrid">
+    <button class="plate-cell"><img src="https://picsum.photos/seed/autoral1/1000/1250" alt="Imagem autoral 1"><span class="num mono">I</span><span class="cap"><p class="title">Título da imagem</p><p class="meta mono">Local, 2025</p></span></button>
+    <button class="plate-cell"><img src="https://picsum.photos/seed/autoral2/1000/1250" alt="Imagem autoral 2"><span class="num mono">II</span><span class="cap"><p class="title">Título da imagem</p><p class="meta mono">Local, 2025</p></span></button>
+    <button class="plate-cell"><img src="https://picsum.photos/seed/autoral3/1000/1250" alt="Imagem autoral 3"><span class="num mono">III</span><span class="cap"><p class="title">Título da imagem</p><p class="meta mono">Local, 2026</p></span></button>
+    <button class="plate-cell"><img src="https://picsum.photos/seed/autoral4/1000/1250" alt="Imagem autoral 4"><span class="num mono">IV</span><span class="cap"><p class="title">Título da imagem</p><p class="meta mono">Local, 2026</p></span></button>
   </div>
 
+</div>
+
+<!-- Visualizador em tela cheia: abre ao clicar numa foto da grade, rola de lado entre as fotos -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Fechar">×</button>
+  <button class="lightbox-arrow prev" id="lightboxPrev" aria-label="Imagem anterior">‹</button>
+  <button class="lightbox-arrow next" id="lightboxNext" aria-label="Próxima imagem">›</button>
+  <div class="lightbox-track">
+    <div class="lightbox-slide"><img src="https://picsum.photos/seed/autoral1/1400/1750" alt="Imagem autoral 1"><div class="lightbox-caption"><p class="num">I</p><p class="title">Título da imagem</p><p class="meta mono">Local, 2025</p></div></div>
+    <div class="lightbox-slide"><img src="https://picsum.photos/seed/autoral2/1400/1750" alt="Imagem autoral 2"><div class="lightbox-caption"><p class="num">II</p><p class="title">Título da imagem</p><p class="meta mono">Local, 2025</p></div></div>
+    <div class="lightbox-slide"><img src="https://picsum.photos/seed/autoral3/1400/1750" alt="Imagem autoral 3"><div class="lightbox-caption"><p class="num">III</p><p class="title">Título da imagem</p><p class="meta mono">Local, 2026</p></div></div>
+    <div class="lightbox-slide"><img src="https://picsum.photos/seed/autoral4/1400/1750" alt="Imagem autoral 4"><div class="lightbox-caption"><p class="num">IV</p><p class="title">Título da imagem</p><p class="meta mono">Local, 2026</p></div></div>
+  </div>
+  <span class="lightbox-count mono"></span>
 </div>
 
 <div class="series-pager mono">

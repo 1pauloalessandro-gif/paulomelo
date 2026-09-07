@@ -1,6 +1,6 @@
 // Busca o "banco de dados" (arquivos JSON em /content, editados pelo painel
 // em /admin) e monta a página com o conteúdo atual — hero, lista de séries,
-// e as lâminas do carrossel de cada série.
+// e a grade de fotos de cada série.
 
 async function fetchJSON(path) {
   var res = await fetch(path, { cache: 'no-store' });
@@ -135,26 +135,35 @@ async function renderSeriePage(slug) {
     menuList.innerHTML = menuHtml;
   }
 
-  // Lâminas do carrossel
-  var track = document.querySelector('.carousel-track');
-  if (track && data.plates && data.plates.length) {
-    var html = '';
+  // Grade de fotos + visualizador em tela cheia
+  var grid = document.getElementById('platesGrid');
+  var lightboxTrack = document.querySelector('#lightbox .lightbox-track');
+  if (grid && lightboxTrack && data.plates && data.plates.length) {
+    var gridHtml = '';
+    var trackHtml = '';
     data.plates.forEach(function (p, idx) {
       var num = toRoman(idx + 1);
       var metaLine = [p.local, p.ano].filter(Boolean).join(', ');
-      html += '' +
-        '<div class="carousel-slide">' +
-        '<div class="slide-img"><img src="' + p.image_webp + '" alt="' + p.title + '"></div>' +
-        '<div class="slide-info">' +
-        '<p class="plate-num">' + num + '</p>' +
-        '<h3>' + p.title + '</h3>' +
+      gridHtml += '' +
+        '<button class="plate-cell">' +
+        '<img src="' + p.image_webp + '" alt="' + p.title + '">' +
+        '<span class="num mono">' + num + '</span>' +
+        '<span class="cap">' +
+        (p.title ? '<p class="title">' + p.title + '</p>' : '') +
         (metaLine ? '<p class="meta mono">' + metaLine + '</p>' : '') +
-        (p.desc ? '<p class="desc">' + p.desc + '</p>' : '') +
+        '</span></button>';
+      trackHtml += '' +
+        '<div class="lightbox-slide">' +
+        '<img src="' + p.image_webp + '" alt="' + p.title + '">' +
+        '<div class="lightbox-caption">' +
+        '<p class="num">' + num + '</p>' +
+        (p.title ? '<p class="title">' + p.title + '</p>' : '') +
+        (metaLine ? '<p class="meta mono">' + metaLine + '</p>' : '') +
         '</div></div>';
     });
-    track.innerHTML = html;
-    var carouselEl = document.querySelector('.carousel');
-    if (carouselEl && window.initCarousel) initCarousel(carouselEl);
+    grid.innerHTML = gridHtml;
+    lightboxTrack.innerHTML = trackHtml;
+    if (window.initLightboxGrid) initLightboxGrid();
   }
 
   // Rodapé: link pra próxima série

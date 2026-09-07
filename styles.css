@@ -161,7 +161,7 @@ section.series-index{
 .series-header .meta{ font-size:0.68rem; color: var(--ink-soft); margin-bottom: 1.6rem; }
 .series-header .intro{ font-size:1.02rem; line-height:1.7; color: var(--ink-soft); max-width: 62ch; }
 
-/* ---- Segunda quebra: menu de séries ao lado do carrossel ---- */
+/* ---- Segunda quebra: menu de séries ao lado da grade de fotos ---- */
 .series-layout{
   max-width: 1400px; margin:0 auto;
   padding: 0 2.2rem 2rem;
@@ -196,92 +196,121 @@ section.series-index{
 .series-menu a.current .n{ color: var(--clay); }
 .series-menu a:hover{ color: var(--ink); }
 
-/* ---- Carrossel de série ---- */
-.carousel{
-  position:relative;
+/* ---- Grade de fotos da série (mosaico — mantém a proporção original de cada foto) ---- */
+.plates-grid{
   padding-top: 2.4rem;
+  column-count: 4;
+  column-gap: 14px;
 }
-.carousel-viewport{
-  overflow:hidden;
-}
-.carousel-track{
-  display:flex;
-  transition: transform 0.5s ease;
-}
-.carousel-slide{
-  flex: 0 0 100%;
-  display:grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 0;
-  min-width:0;
-}
-.slide-img{
+.plate-cell{
+  position:relative;
+  display:block;
+  width:100%;
+  margin-bottom: 14px;
+  break-inside: avoid;
   overflow:hidden;
   background: var(--paper-alt);
+  cursor: pointer;
+  border: none;
+  padding: 0;
 }
-.slide-img img{
-  width:100%; height:100%; object-fit:cover; display:block;
-  aspect-ratio: 4/5;
+.plate-cell img{
+  width:100%; height:auto; display:block;
+  filter: saturate(0.92);
+  transition: transform 0.5s ease;
 }
-.slide-info{
+.plate-cell:hover img{ transform: scale(1.035); }
+.plate-cell .num{
+  position:absolute; top:0.7rem; left:0.8rem;
+  font-family:"IBM Plex Mono", monospace; font-size:0.62rem;
+  color:#F3EFE4;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+.plate-cell .cap{
+  position:absolute; left:0; right:0; bottom:0;
+  padding: 1.8rem 0.9rem 0.8rem;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.62) 100%);
+  color:#F3EFE4;
+  opacity:0; transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.plate-cell:hover .cap, .plate-cell:focus-visible .cap{ opacity:1; transform: translateY(0); }
+.plate-cell .cap .title{ font-family:"Fraunces", serif; font-size:0.92rem; margin:0 0 0.2rem; }
+.plate-cell .cap .meta{ font-size:0.58rem; opacity:0.9; }
+
+@media (max-width: 1050px){ .plates-grid{ column-count: 3; } }
+
+/* ---- Visualizador em tela cheia (abre ao clicar numa foto da grade, scroll lateral entre as fotos) ---- */
+.lightbox{
+  position: fixed; inset:0; z-index: 200;
+  background: var(--ink);
+  display:none;
+}
+.lightbox.open{ display:block; }
+.lightbox-track{
+  height:100%;
+  display:flex;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.lightbox-track::-webkit-scrollbar{ display:none; }
+.lightbox-slide{
+  flex: 0 0 100%;
+  height:100%;
+  scroll-snap-align: start;
   display:flex;
   flex-direction:column;
+  align-items:center;
   justify-content:center;
-  padding: 2.4rem 3.2rem;
+  padding: 2rem 6vw;
+  position:relative;
 }
-.slide-info .plate-num{
-  font-family:"Fraunces", serif;
-  font-size: 3.4rem;
-  color: var(--clay);
-  line-height:1;
-  margin: 0 0 1.2rem;
+.lightbox-slide img{
+  max-width:100%;
+  max-height: 76vh;
+  width:auto; height:auto;
+  object-fit:contain;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
 }
-.slide-info h3{
-  font-family:"Fraunces", serif;
-  font-weight:500;
-  font-size: 1.6rem;
-  margin: 0 0 0.6rem;
+.lightbox-caption{
+  margin-top: 1.4rem;
+  text-align:center;
+  color:#F3EFE4;
 }
-.slide-info .meta{
-  font-size:0.66rem;
-  color: var(--ink-soft);
-  margin-bottom: 1.2rem;
-}
-.slide-info .desc{
-  font-size:0.98rem;
-  line-height:1.6;
-  color: var(--ink-soft);
-  max-width: 36ch;
-}
-.carousel-arrow{
-  position:absolute;
-  top:50%; transform: translateY(-50%);
-  width: 44px; height:44px;
-  border-radius:50%;
-  border: 1px solid var(--line);
-  background: var(--paper);
-  color: var(--ink);
-  font-size: 1.1rem;
+.lightbox-caption .num{ font-family:"Fraunces", serif; font-size:1.1rem; color: var(--clay); margin:0 0 0.3rem; }
+.lightbox-caption .title{ font-family:"Fraunces", serif; font-size:1.15rem; margin:0 0 0.3rem; }
+.lightbox-caption .meta{ font-size:0.62rem; opacity:0.75; }
+.lightbox-close{
+  position:absolute; top:1.6rem; right:1.8rem; z-index:6;
+  width:42px; height:42px; border-radius:50%;
+  background: rgba(243,239,228,0.1);
+  border: 1px solid rgba(243,239,228,0.3);
+  color:#F3EFE4;
+  font-size:1.2rem;
   display:flex; align-items:center; justify-content:center;
   cursor:pointer;
-  z-index:3;
 }
-.carousel-arrow:hover{ background: var(--ink); color: var(--paper); border-color: var(--ink); }
-.carousel-arrow.prev{ left: -8px; }
-.carousel-arrow.next{ right: -8px; }
-.carousel-meta-row{
-  display:flex; justify-content:space-between; align-items:center;
-  padding: 1.2rem 0.2rem 0;
+.lightbox-close:hover{ background: rgba(243,239,228,0.22); }
+.lightbox-arrow{
+  position:absolute; top:50%; transform: translateY(-50%);
+  z-index:6;
+  width:48px; height:48px; border-radius:50%;
+  background: rgba(243,239,228,0.1);
+  border: 1px solid rgba(243,239,228,0.3);
+  color:#F3EFE4;
+  font-size:1.3rem;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
 }
-.carousel-count{ font-size:0.66rem; color: var(--ink-soft); }
-.carousel-dots{
-  display:flex; gap: 0.5rem;
+.lightbox-arrow:hover{ background: rgba(243,239,228,0.22); }
+.lightbox-arrow.prev{ left: 1.4rem; }
+.lightbox-arrow.next{ right: 1.4rem; }
+.lightbox-count{
+  position:absolute; bottom:1.6rem; left:50%; transform:translateX(-50%);
+  color:#F3EFE4; opacity:0.6; font-size:0.62rem; z-index:6;
 }
-.carousel-dots button{
-  width:7px; height:7px; border-radius:50%;
-  border:none; background: var(--line); cursor:pointer; padding:0;
-}
-.carousel-dots button.active{ background: var(--clay); }
 
 /* ---- Navegação entre séries (rodapé de página de série) ---- */
 .series-pager{
@@ -349,21 +378,26 @@ footer .copyright{ margin-top: 3rem; font-size:0.62rem; color: var(--ink-soft); 
     padding-bottom: 0.4rem;
   }
   .series-menu ul{ flex-direction:row; overflow-x:auto; gap:1.4rem; }
-  .carousel{ padding-top: 0.8rem; border-top: 1px solid var(--line); }
+  .plates-grid{ padding-top: 0.8rem; border-top: 1px solid var(--line); }
   .series-index-layout{ grid-template-columns: 1fr; gap: 1.6rem; }
 }
 
 @media (max-width: 760px){
   .series-index-grid{ grid-template-columns: 1fr; }
-  .carousel-slide{ grid-template-columns: 1fr; }
-  .slide-info{ padding: 1.6rem 0.4rem; }
-  .carousel-arrow{ display:none; }
+  .plates-grid{ column-count: 2; }
+  .plate-cell .cap{ opacity:1; transform:none; background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.62) 100%); }
+  .lightbox-arrow{ width:38px; height:38px; font-size:1.1rem; }
+  .lightbox-arrow.prev{ left:0.5rem; }
+  .lightbox-arrow.next{ right:0.5rem; }
   .about{ grid-template-columns: 1fr; }
   .series-pager{ flex-direction:column; gap:0.8rem; }
   nav ul{ gap: 1rem; }
 }
 
+@media (max-width: 440px){
+  .plates-grid{ column-count: 1; }
+}
+
 @media (prefers-reduced-motion: reduce){
   html{ scroll-behavior:auto; }
-  .carousel-track{ transition:none; }
 }

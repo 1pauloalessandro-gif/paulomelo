@@ -1,58 +1,82 @@
-// Carrossel simples, sem dependências.
-// initCarousel(el) monta um carrossel específico — chamado tanto no carregamento
-// da página (carrosséis já presentes no HTML) quanto depois que o data.js
-// insere as lâminas dinamicamente (banco de dados via Decap CMS).
-function initCarousel(carousel) {
-  var track = carousel.querySelector('.carousel-track');
-  var slides = Array.prototype.slice.call(carousel.querySelectorAll('.carousel-slide'));
-  var prevBtn = carousel.querySelector('.carousel-arrow.prev');
-  var nextBtn = carousel.querySelector('.carousel-arrow.next');
-  var dotsWrap = carousel.querySelector('.carousel-dots');
-  var countEl = carousel.querySelector('.carousel-count');
-  var index = 0;
+// Grade de fotos + visualizador em tela cheia, sem dependências.
+// initLightboxGrid() liga os cliques da grade (#platesGrid) ao visualizador (#lightbox),
+// com navegação lateral por arraste, roda do mouse, setas na tela e teclado.
+// Chamado tanto no carregamento da página (grade já pronta no HTML) quanto depois
+// que o data.js insere as fotos dinamicamente (banco de dados via CMS).
+function initLightboxGrid() {
+  var grid = document.getElementById('platesGrid');
+  var lightbox = document.getElementById('lightbox');
+  if (!grid || !lightbox) return;
 
-  if (dotsWrap) dotsWrap.innerHTML = '';
+  var track = lightbox.querySelector('.lightbox-track');
+  var countEl = lightbox.querySelector('.lightbox-count');
+  var closeBtn = lightbox.querySelector('.lightbox-close');
+  var prevBtn = lightbox.querySelector('.lightbox-arrow.prev');
+  var nextBtn = lightbox.querySelector('.lightbox-arrow.next');
+  var slides = Array.prototype.slice.call(track.querySelectorAll('.lightbox-slide'));
+  var current = 0;
 
-  slides.forEach(function (_, i) {
-    if (!dotsWrap) return;
-    var dot = document.createElement('button');
-    if (i === 0) dot.classList.add('active');
-    dot.setAttribute('aria-label', 'Ir para imagem ' + (i + 1));
-    dot.addEventListener('click', function () { goTo(i); });
-    dotsWrap.appendChild(dot);
+  function updateCount() {
+    if (countEl) countEl.textContent = (current + 1) + ' / ' + slides.length;
+  }
+
+  function scrollToIndex(i, smooth) {
+    current = Math.max(0, Math.min(slides.length - 1, i));
+    track.scrollTo({ left: current * track.clientWidth, behavior: smooth ? 'smooth' : 'auto' });
+    updateCount();
+  }
+
+  function open(i) {
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    scrollToIndex(i, false);
+  }
+
+  function close() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  grid.querySelectorAll('.plate-cell').forEach(function (cell, i) {
+    cell.addEventListener('click', function () { open(i); });
   });
 
-  function update() {
-    track.style.transform = 'translateX(-' + (index * 100) + '%)';
-    if (dotsWrap) {
-      dotsWrap.querySelectorAll('button').forEach(function (d, i) {
-        d.classList.toggle('active', i === index);
-      });
+  if (closeBtn) closeBtn.addEventListener('click', close);
+  if (prevBtn) prevBtn.addEventListener('click', function () { scrollToIndex(current - 1, true); });
+  if (nextBtn) nextBtn.addEventListener('click', function () { scrollToIndex(current + 1, true); });
+
+  document.addEventListener('keydown', function (e) {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowRight') scrollToIndex(current + 1, true);
+    if (e.key === 'ArrowLeft') scrollToIndex(current - 1, true);
+  });
+
+  // Roda do mouse (vertical) também navega lateralmente — trackpad já rola de lado sozinho.
+  track.addEventListener('wheel', function (e) {
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+      e.preventDefault();
+      track.scrollLeft += e.deltaY;
     }
-    if (countEl) countEl.textContent = (index + 1) + ' / ' + slides.length;
-  }
+  }, { passive: false });
 
-  function goTo(i) {
-    index = (i + slides.length) % slides.length;
-    update();
-  }
-
-  if (prevBtn) prevBtn.addEventListener('click', function () { goTo(index - 1); });
-  if (nextBtn) nextBtn.addEventListener('click', function () { goTo(index + 1); });
-
-  carousel.setAttribute('tabindex', '0');
-  carousel.addEventListener('keydown', function (e) {
-    if (e.key === 'ArrowLeft') goTo(index - 1);
-    if (e.key === 'ArrowRight') goTo(index + 1);
+  // Mantém o contador sincronizado ao arrastar/rolar manualmente.
+  var scrollTimeout;
+  track.addEventListener('scroll', function () {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(function () {
+      current = Math.round(track.scrollLeft / track.clientWidth);
+      updateCount();
+    }, 80);
   });
 
-  update();
+  updateCount();
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  // Só inicializa aqui os carrosséis que já vêm prontos no HTML.
-  // Se a página usa data.js, ele mesmo chama initCarousel depois de montar as lâminas.
+  // Só inicializa aqui a grade que já vem pronta no HTML (sem data.js).
+  // Se a página usa data.js, ele mesmo chama initLightboxGrid depois de montar as fotos.
   if (!document.body.hasAttribute('data-driven')) {
-    document.querySelectorAll('.carousel').forEach(initCarousel);
+    initLightboxGrid();
   }
 });
