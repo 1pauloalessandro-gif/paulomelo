@@ -20,13 +20,41 @@ function toRoman(n) {
 async function loadHero() {
   var wrap = document.querySelector('.hero');
   if (!wrap) return;
+  var img = wrap.querySelector('img');
+  if (!img) return;
+
+  // Monta um "banco" com as fotos de todas as séries e sorteia uma pra
+  // exibir no hero — assim a home mostra uma foto diferente a cada visita,
+  // em vez de sempre a mesma capa fixa.
+  try {
+    var slugs = await loadSeriesOrder();
+    var pool = [];
+    for (var i = 0; i < slugs.length; i++) {
+      try {
+        var series = await loadSeries(slugs[i]);
+        (series.plates || []).forEach(function (p) {
+          if (p.image_webp) pool.push({ src: p.image_webp, alt: p.title || ('Fotografia da série ' + series.title) });
+        });
+      } catch (e) {
+        // série referenciada no índice mas sem arquivo ainda: ignora
+      }
+    }
+    if (pool.length) {
+      var pick = pool[Math.floor(Math.random() * pool.length)];
+      img.setAttribute('src', pick.src);
+      img.setAttribute('alt', pick.alt);
+      return;
+    }
+  } catch (e) {
+    // segue pro fallback abaixo
+  }
+
+  // Fallback: hero fixo em content/hero.json (usado só se ainda não
+  // houver nenhuma foto cadastrada em nenhuma série)
   try {
     var hero = await fetchJSON('content/hero.json');
-    var img = wrap.querySelector('img');
-    if (img) {
-      if (hero.image_webp) img.setAttribute('src', hero.image_webp);
-      if (hero.alt) img.setAttribute('alt', hero.alt);
-    }
+    if (hero.image_webp) img.setAttribute('src', hero.image_webp);
+    if (hero.alt) img.setAttribute('alt', hero.alt);
   } catch (e) {
     // sem dado ainda: mantém a imagem que já está no HTML
   }
