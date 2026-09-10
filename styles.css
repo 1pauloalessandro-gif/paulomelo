@@ -29,14 +29,16 @@ body{
 a{ color: inherit; }
 
 /* ---- Nav (topo, igual em todas as páginas) ---- */
-/* esconde ao rolar pra baixo, reaparece ao rolar pra cima — ver initAutoHideNav() em script.js */
+/* header sólido (sem foto atrás) pra manter o menu sempre legível;
+   esconde ao rolar pra baixo, reaparece ao rolar pra cima — ver initAutoHideNav() em script.js */
 nav{
-  position: fixed;
+  position: sticky;
   top:0; left:0; right:0;
   z-index: 50;
   font-size: 0.72rem;
-  mix-blend-mode: difference;
-  color: #fff;
+  background: var(--paper);
+  color: var(--ink);
+  border-bottom: 1px solid var(--line);
   transition: transform 0.35s ease;
 }
 nav.nav-hidden{
@@ -50,9 +52,10 @@ nav.nav-hidden{
   align-items:center;
   padding: 1.4rem 2.2rem;
 }
-nav .brand{ font-family:"Fraunces", serif; font-size:0.95rem; letter-spacing:0.02em; text-decoration:none; }
+nav .brand{ font-family:"Fraunces", serif; font-size:0.95rem; letter-spacing:0.02em; text-decoration:none; color: var(--ink); }
 nav ul{ display:flex; gap:1.6rem; list-style:none; margin:0; padding:0; }
-nav a{ text-decoration:none; }
+nav a{ text-decoration:none; color: var(--ink); }
+nav a:hover{ color: var(--clay); }
 
 /* ---- Hero (computador): uma foto estática, definida em content/hero-desktop.json (ver loadHero() em data.js) ---- */
 .hero-desktop{
@@ -194,9 +197,10 @@ section.series-index{
 .series-card .label .meta{ font-size:0.64rem; margin-top:0.4rem; opacity:0.85; }
 
 /* ---- Cabeçalho de série (largura cheia, acima da quebra) ---- */
+/* padding-top menor que antes: o nav agora ocupa espaço real no topo da página (não é mais sobreposto) */
 .series-header{
   max-width: 1400px; margin:0 auto;
-  padding: 7.5rem 2.2rem 2rem;
+  padding: 3.5rem 2.2rem 2rem;
 }
 .series-header .kicker{ font-size:0.68rem; color: var(--moss); display:block; margin-bottom:1rem; }
 .series-header h1{ font-family:"Fraunces", serif; font-weight:500; font-size: clamp(2rem,5vw,3.2rem); margin:0 0 0.8rem; }
@@ -413,6 +417,13 @@ footer .copyright{ margin-top: 3rem; font-size:0.62rem; color: var(--ink-soft); 
   .lightbox-arrow.next{ right:0.5rem; }
   .series-pager{ flex-direction:column; gap:0.8rem; }
   nav ul{ gap: 1rem; }
+  /* quando o parágrafo de contato quebra linha, empilha cada @ centralizado em vez de deixar o separador "·" sobrando numa ponta */
+  footer .contact-line{
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  footer .contact-line .sep{ display:none; }
 }
 
 @media (max-width: 440px){
