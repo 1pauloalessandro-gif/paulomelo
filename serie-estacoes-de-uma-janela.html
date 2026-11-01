@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estações de uma janela — Paulo Melo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,400&family=Source+Serif+4:ital,opsz@0,8..60;1,8..60&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-driven>
+
+<!--
+  PADRÃO DE IMAGEM:
+  ao trocar qualquer placeholder do picsum.photos por uma foto sua,
+  use um <img> direto apontando pro arquivo .webp exportado — só é
+  necessário o arquivo .webp, não precisa mais gerar um .jpg junto.
+
+  <img src="mudanca-01_janela-sobre-o-vale.webp" alt="Janela sobre o vale">
+-->
+
+<nav>
+  <div class="nav-inner">
+    <a class="brand" href="index.html">Paulo Melo</a>
+    <ul class="mono">
+      <li><a href="index.html#series">Séries</a></li>
+      <li><a href="index.html#contato">Contato</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Cabeçalho da série: largura cheia, acima da quebra -->
+<section class="series-header">
+  <span class="kicker mono">Série</span>
+  <h1 class="display">Estações de uma janela</h1>
+  <p class="meta mono">São Paulo, 2023–2026 — 7 imagens</p>
+  <p class="intro">Por dois anos e meio, fotografei sempre da mesma janela — a vista do meu escritório em São Paulo. A cidade lá fora seguia seu ritmo repetitivo: o mesmo horizonte, a mesma luz previsível, os mesmos prédios. Mas em meio a essa rotina, alguns dias se distinguiam — uma luz diferente, um movimento inesperado, um instante que parecia pedir pra ser guardado. Esta série reúne essas exceções: o que ficou de um olhar repetido sobre a mesma paisagem, dia após dia.</p>
+</section>
+
+<!-- Segunda quebra: menu de séries ao lado da grade de fotos -->
+<div class="series-layout">
+
+  <aside class="series-menu">
+    <span class="group-label mono">Séries</span>
+    <ul>
+      <li><a href="serie-o-que-fica.html"><span class="n">01</span> Projeto: O que fica</a></li>
+      <li><a href="serie-inhotim.html"><span class="n">02</span> Inhotim</a></li>
+      <li><a class="current" href="serie-estacoes-de-uma-janela.html"><span class="n">03</span> Estações de uma janela</a></li>
+      <li><a href="serie-floracao.html"><span class="n">04</span> Floração</a></li>
+      <!-- nova série? adicione o link aqui também -->
+    </ul>
+  </aside>
+
+  <div class="plates-grid" id="platesGrid">
+    <!-- preenchido dinamicamente por renderSeriePage() (data.js) — sem placeholder aqui pra não piscar imagem errada antes do JS carregar -->
+  </div>
+
+</div>
+
+<!-- Visualizador em tela cheia: abre ao clicar numa foto da grade, rola de lado entre as fotos -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Fechar">×</button>
+  <button class="lightbox-arrow prev" id="lightboxPrev" aria-label="Imagem anterior">‹</button>
+  <button class="lightbox-arrow next" id="lightboxNext" aria-label="Próxima imagem">›</button>
+  <div class="lightbox-track">
+    <!-- preenchido dinamicamente por renderSeriePage() (data.js) -->
+  </div>
+  <span class="lightbox-count mono"></span>
+</div>
+
+<div class="series-pager mono">
+  <a class="to-index" href="index.html#series">← Todas as séries</a>
+  <a href="serie-floracao.html"><span class="next-label">Próxima série </span><span class="next-name">Floração →</span></a>
+</div>
+
+<footer id="contato">
+  <span class="kicker mono">Contato</span>
+  <p class="contact-line">
+    <a class="email" href="https://instagram.com/paulo_alessandro" target="_blank" rel="noopener">@paulo_alessandro</a>
+    <span class="sep mono">·</span>
+    <a class="email" href="https://instagram.com/acervo.paulomelo" target="_blank" rel="noopener">@acervo.paulomelo</a>
+  </p>
+  <p class="copyright mono">© 2026 Paulo Melo</p>
+</footer>
+
+<script src="script.js"></script>
+<script src="data.js"></script>
+<script>
+  renderSeriePage('estacoes-de-uma-janela');
+</script>
+</body>
+</html>
