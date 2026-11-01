@@ -60,8 +60,8 @@ nav a:hover{ color: var(--clay); }
 /* ---- Hero (computador): uma foto estática, definida em content/hero-desktop.json (ver loadHero() em data.js) ---- */
 .hero-desktop{
   position:relative;
-  height:82vh;
-  min-height:520px;
+  height:100vh;
+  min-height:600px;
   overflow:hidden;
   background: var(--paper-alt);
 }
